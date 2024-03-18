@@ -1,0 +1,35 @@
+infoPessoais
+ 	public nome: string,
+        public endereco: string[],
+        public telefone: string,
+        public email: string,
+        public cpf: string,
+        public dataNascimento: Date,
+        public genero: string
+
+
+Colaborador extend InfoPessoais
+ 	public cargo: string,
+        private matricula: string) {
+   	desenvolvedor extend funcionario
+
+
+equipes
+	líder 
+	lista de membros,
+	projetos da equipe
+
+projetos
+	nome do projeto, 
+	descrição, 
+	tecnologias utilizadas, 
+	data de início, 
+	data de término prevista 
+	status (em andamento, concluído, etc.)
+
+tarefas
+	nome da tarefa,
+	descrição, 
+	desenvolvedor responsável, 
+	prazo 
+	status (pendente, em execução, concluída).
