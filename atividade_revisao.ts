@@ -4,30 +4,23 @@ abstract class InfoPessoais {
         public nome: string,
         public endereco: string[],
         public telefone: string,
-        public email: string,  //atributo privado impede que o atributo seja chamado e alterado pelas classes filhas
+        public email: string,
         public cpf: string,
         public dataNascimento: Date,
         public genero: string
     ) { }
     mostrarInfoPessoais() {
         console.log(`
-            Nome: ${this.nome}
-            Endereco: ${this.endereco}
-            Telefone: ${this.telefone}
-            E-mail: ${this.email}
-            CPF: ${this.cpf}
-            Data de nascimento: ${this.dataNascimento}
-            Gênero: ${this.genero}
-            `)
+        == Informações Pessoais ==
+        Nome: ${this.nome}
+        Endereco: ${this.endereco}
+        Telefone: ${this.telefone}
+        E-mail: ${this.email}
+        CPF: ${this.cpf}
+        Data de nascimento: ${this.dataNascimento}
+        Gênero: ${this.genero}
+        `)
     }
-    /* getCPF(): string {
-         return this.cpf
-     }
-     setCPF(cpf: string): void {
-         this.cpf = cpf
-     }*/
-}
-
 
 //a classe Colaborador herda atributos da classe InfoPessoais
 class Colaborador extends InfoPessoais {
@@ -45,11 +38,12 @@ class Colaborador extends InfoPessoais {
         super(nome, endereco, telefone, email, cpf, dataNascimento, genero)
     }
     //método para exibir os dados 
-    mostrarDados() {
+    mostrarDadosColab() {
+        console.log('== Informações do Colaborador ==')
         super.mostrarInfoPessoais
         console.log(`
-        Matrícula: ${this.matricula}
-        Cargo: ${this.cargo}\n `)
+    Matrícula: ${this.matricula}
+    Cargo: ${this.cargo}\n `)
     }
     getMatricula(): string {
         return this.matricula
@@ -75,39 +69,31 @@ class Desenvolvedor extends Colaborador {
         super(nome, endereco, telefone, email, cpf, dataNascimento, genero, cargo, matricula)
     }
     mostrarDados(): void {
-        super.mostrarDados()
+        console.log(`== Informações do desenvolvedor==`)
+        super.mostrarDadosColab
+        console.log(`
+        Linguagens: ${this.lignuagens}
+        Frameworks: ${this.frameworks}
+        `)
     }
 }
-/*
-class Lider extends Desenvolvedor {
-    constructor(
-        nome: string,
-        endereco: string[],
-        telefone: string,
-        email: string,
-        cpf: string,
-        dataNascimento: Date,
-        genero: string,
-        cargo: string,
-        matricula: string,
-        lignuagens: string[],
-        frameworks: string[]) {
-        super(nome, endereco, telefone, email, cpf, dataNascimento, genero, cargo, matricula, lignuagens, frameworks)
-    }
 
-}
-*/
 class Equipe {
     constructor(
         public lider: Desenvolvedor,
-        public membros: Desenvolvedor[]=[],
+        public membros: Desenvolvedor[] = [],
         public projetos: string[]) {
     }
-    addMembros(novoMembro: Desenvolvedor): void{
+    addMembros(novoMembro: Desenvolvedor): void {
         this.membros.push(novoMembro)
     }
+    mostrarDados(){
+        console.log(`== Equipe ==
+        Líder: ${this.lider}
+        Membros: ${this.membros}
+        Projetos da equipe: ${this.projetos}`)
+    }
 }
-
 
 class Projeto {
     constructor(
@@ -117,10 +103,10 @@ class Projeto {
         public dataInicio: Date,
         public dataFim: Date,
         public status: string,
-        public tarefas: Tarefa[]=[],
-        public membros: Equipe[]
-        ) {
-         }
+        public tarefas: Tarefa[] = [],
+        public membros: Equipe[]=[]
+    ) {
+    }
     mostrarDdados() {
         console.log(`
     Nome do projeto: ${this.nomeProjeto}
@@ -128,16 +114,18 @@ class Projeto {
     Tecnologias Utilizadas: ${this.tecnologias}
     Data de início: ${this.dataInicio}
     Data de término: ${this.dataFim}
-    Status: ${statusbar}
+    Status: ${this.status}
     
     Tarefas
-    ${this.tarefas}`)
+    ${this.tarefas}
+    
+    Membros:
+    ${this.membros}`)
     }
-    addTarefa(novaTarefas: Tarefa): void{
+    addTarefa(novaTarefas: Tarefa): void {
         this.tarefas.push(novaTarefas)
     }
 
-    
 }
 class Tarefa {
     constructor(
@@ -149,19 +137,28 @@ class Tarefa {
     ) { }
     mostrarDados() {
         console.log(`
-            Nome da tarefa: ${this.nomeTarefa}
-            Descrição: ${this.descriçãoTarefa}
-            Responsável: ${this.devResponsavel}
-            Prazo: ${this.prazo}
-            Status: ${this.status}
-            `)
+        Nome da tarefa: ${this.nomeTarefa}
+        Descrição: ${this.descriçãoTarefa}
+        Responsável: ${this.devResponsavel}
+        Prazo: ${this.prazo}
+        Status: ${this.status}
+        `)
     }
 }
-const equipe1 = new Equipe(dev1,)
-const dev1 = new Desenvolvedor('Matheus', ['rua Senac, Natal'], '12345678965', 'matheus@gmail.com', '98745632101', new Date('1990-02-28'),'Masculino', 'Desenvolvedor','4037933', ['typescript, javascript'], ['react'])
-const tarefa1 = new Tarefa ('Pesquisa Bibliografica', 'Pesquisar material bibliografico', 'Matheus', new Date ('2024-03-21'), 'Em andamento')
-const projeto1 = new Projeto('Projeto 23', 'Descrição geral do projeto', 'React', new Date('2024-03-17'),new Date('2024-04-20'), 'Em andamento')
+
+//Instancias
+//cadastrar um novo desenvolvedor
+const dev1 = new Desenvolvedor('Matheus', ['rua Senac, Natal'], '12345678965', 'matheus@gmail.com', '98745632101', new Date('1990-02-28'), 'Masculino', 'Desenvolvedor', '4037933', ['typescript, javascript'], ['react'])
+//cadastrar nova equipe
+const equipe1 = new Equipe(dev1, [dev1, dev1], ['Projeto 1', 'Projeto 2'])
+//cafastrar nova tarefa
+const tarefa1 = new Tarefa('Pesquisa Bibliografica', 'Pesquisar material bibliografico', 'Matheus', new Date('2024-03-21'), 'Em andamento')
+//cadastrar novo projeto
+const projeto1 = new Projeto('Projeto 1', 'Descrição geral do projeto', 'React', new Date('2024-03-17'), new Date('2024-04-20'), 'Em andamento', [tarefa1, tarefa1], [equipe1])
+//Utilizando o método para adicionar nova tarefa ao projeto
 projeto1.addTarefa(tarefa1)
 
-
-
+//exibindo as informações dos objetos criados
+projeto1.mostrarDdados()
+tarefa1.mostrarDados()
+dev1.mostrarDadosColab()
